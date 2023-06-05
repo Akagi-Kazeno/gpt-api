@@ -35,7 +35,7 @@ psql
 alter user postgres with password 'password';    # 修改postgres的密码
 
         # 数据库名称↓    所有者(用户名)↓
-CREATE DATABASE gpt-api OWNER postgres;             # 创建数据库
+CREATE DATABASE "gpt-api" OWNER postgres;             # 创建数据库
 ```
 
 ## 3.配置外网连接(可省略)
