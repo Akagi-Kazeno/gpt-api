@@ -1,9 +1,10 @@
+import asyncio
 import os
 from datetime import timedelta
 
 import openai
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 import models.chat
@@ -130,6 +131,15 @@ def edit_image():
         mask_path = data["maskPath"]
         return models.image.gpt_edit_image(image_path, description, num, mask_path)
 
+@app.route('/api/chat', methods=['POST'])
+def chat_api():
+    if request.method == 'POST':
+        data = request.get_json()
+        token = data.get('token')
+        model = data.get('model')
+        prompt = data.get('prompt')
+        response = asyncio.run(models.chat.web_chat(token, model, prompt))
+        return jsonify({'response': response})
 
 if __name__ == '__main__':
     app.run(host=os.getenv("HOST"), port=os.getenv("PORT"))
