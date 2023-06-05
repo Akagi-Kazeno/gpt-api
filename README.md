@@ -104,3 +104,16 @@ python3 app.py
 ```shell
 screen -r gpt-api
 ```
+
+# Windows/Mac数据库配置
+
+## 使用Docker拉取postgres镜像
+```shell
+docker pull postgres:latest
+```
+
+## 使用postgres镜像创建容器
+```shell
+                                                              # 密码↓
+docker run --name postgres -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgres
+```
