@@ -131,14 +131,75 @@ def edit_image():
         mask_path = data["maskPath"]
         return models.image.gpt_edit_image(image_path, description, num, mask_path)
 
-@app.route('/api/chat', methods=['POST'])
-def chat_api():
+@app.route('/api/chat_ask', methods=['POST'])
+def chat_ask():
+    create_session_id()
     if request.method == 'POST':
         data = request.get_json()
         token = data.get('token')
         model = data.get('model')
         prompt = data.get('prompt')
-        response = asyncio.run(models.chat.web_chat(token, model, prompt))
+        response = asyncio.run(models.chat.chat_ask(token, model, prompt))
+        return jsonify({'response': response})
+
+@app.route('/api/chat_conversation', methods=['POST'])
+def chat_conversation():
+    create_session_id()
+    if request.method == 'POST':
+        data = request.get_json()
+        token = data.get('token')
+        response = asyncio.run(models.chat.chat_conversation(token))
+        return jsonify({'response': response})
+
+@app.route('/api/chat_msg_history', methods=['POST'])
+def chat_msg_history():
+    create_session_id()
+    if request.method == 'POST':
+        data = request.get_json()
+        token = data.get('token')
+        convo_id = data.get('convo_id')
+        response = asyncio.run(models.chat.chat_msg_history(token, convo_id))
+        return jsonify({'response': response})
+
+@app.route('/api/chat_gen_title', methods=['POST'])
+def chat_gen_title():
+    create_session_id()
+    if request.method == 'POST':
+        data = request.get_json()
+        token = data.get('token')
+        convo_id = data.get('convo_id')
+        message_id = data.get('message_id')
+        response = asyncio.run(models.chat.chat_gen_title(token, convo_id, message_id))
+        return jsonify({'response': response})
+
+@app.route('/api/chat_change_title', methods=['POST'])
+def chat_change_title():
+    create_session_id()
+    if request.method == 'POST':
+        data = request.get_json()
+        token = data.get('token')
+        convo_id = data.get('convo_id')
+        title = data.get('title')
+        response = asyncio.run(models.chat.chat_change_title(token, convo_id, title))
+        return jsonify({'response': response})
+
+@app.route('/api/chat_delete_conversation', methods=['POST'])
+def chat_delete_conversation():
+    create_session_id()
+    if request.method == 'POST':
+        data = request.get_json()
+        token = data.get('token')
+        convo_id = data.get('convo_id')
+        response = asyncio.run(models.chat.chat_delete_conversation(token, convo_id))
+        return jsonify({'response': response})
+
+@app.route('/api/chat_clear_conversations', methods=['POST'])
+def chat_clear_conversations():
+    create_session_id()
+    if request.method == 'POST':
+        data = request.get_json()
+        token = data.get('token')
+        response = asyncio.run(models.chat.chat_clear_conversations(token))
         return jsonify({'response': response})
 
 if __name__ == '__main__':
