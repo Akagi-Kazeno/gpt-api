@@ -56,12 +56,12 @@ def use_chat_completion(message: str):
     return chat
 
 
-async def chat_ask(token, model, prompt) -> str:
+async def chat_ask(token, convo_id, model, prompt) -> str:
     chatbot = AsyncChatbot(config={
         "access_token": token
     })
     response = ""
-    async for d in chatbot.ask(prompt=prompt, model=model):
+    async for d in chatbot.ask(prompt=prompt, model=model, conversation_id=convo_id):
         response = d["message"]
     return response
 

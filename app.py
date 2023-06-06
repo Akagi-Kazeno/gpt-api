@@ -140,7 +140,8 @@ def chat_ask():
         token = data.get('token')
         model = data.get('model')
         prompt = data.get('prompt')
-        response = asyncio.run(models.chat.chat_ask(token, model, prompt))
+        convo_id = data.get('convo_id')
+        response = asyncio.run(models.chat.chat_ask(token, convo_id, model, prompt))
         return jsonify({'response': response})
 
 
