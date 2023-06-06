@@ -2,3 +2,4 @@
 test
 static/log/*
 .vscode
+.env.dev
