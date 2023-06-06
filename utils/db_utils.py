@@ -1,22 +1,17 @@
 import json
-import os
 
-from dotenv import load_dotenv
+from entity.db_init import get_db_session, get_db_base, create_db_engine
+from service import chat_service, gpt_image_service, completion_service, user_chat_completion_service, \
+    user_chat_service, user_completion_service, user_gpt_image_service
+
 # 导入sqlalchemy模块
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
 
-from entity import chat_entity, completion_entity, gpt_image_entity, user_chat_entity, user_completion_entity, \
-    user_gpt_image_entity, user_chat_completion_entity
-
-load_dotenv()
-
-# 创建一个数据库引擎，连接到gpt数据库
-engine = create_engine(os.getenv("DATABASE_URL"))
+# 创建一个数据库引擎，连接到数据库
+engine = create_db_engine()
 # 创建一个基类，用于定义表结构
-Base = declarative_base()
+Base = get_db_base()
 # 创建一个会话类，用于操作数据库
-Session = sessionmaker(bind=engine)
+Session = get_db_session()
 session = Session()
 
 
@@ -26,7 +21,7 @@ def chat_db_commit(json_data: dict):
     :param json_data:
     :return:
     """
-    data = chat_entity.chat_json_to_db(json_data)
+    data = chat_service.chat_json_to_db(json_data)
     commit_data(data)
 
 
@@ -36,7 +31,7 @@ def user_chat_db_commit(message: str):
     :param message:
     :return:
     """
-    data = user_chat_entity.user_chat_to_db(message)
+    data = user_chat_service.user_chat_to_db(message)
     commit_data(data)
 
 
@@ -47,7 +42,7 @@ def user_chat_completion_to_db(message: dict):
     :return:
     """
     json_message = json.dumps(message)
-    data = user_chat_completion_entity.user_chat_completion_to_db(json_message)
+    data = user_chat_completion_service.user_chat_completion_to_db(json_message)
     commit_data(data)
 
 
@@ -57,7 +52,7 @@ def completion_db_commit(json_data):
     :param json_data:
     :return:
     """
-    data = completion_entity.completion_json_to_db(json_data)
+    data = completion_service.completion_json_to_db(json_data)
     commit_data(data)
 
 
@@ -67,7 +62,7 @@ def user_completion_db_commit(prompt: str):
     :param prompt:
     :return:
     """
-    data = user_completion_entity.user_completion_to_db(prompt)
+    data = user_completion_service.user_completion_to_db(prompt)
     commit_data(data)
 
 
@@ -77,7 +72,7 @@ def gpt_image_db_commit(json_data):
     :param json_data:
     :return:
     """
-    data = gpt_image_entity.gpt_image_json_to_db(json_data)
+    data = gpt_image_service.gpt_image_json_to_db(json_data)
     commit_data(data)
 
 
@@ -87,7 +82,7 @@ def user_gpt_image_db_commit(description: str):
     :param description:
     :return:
     """
-    data = user_gpt_image_entity.user_gpt_image_to_db(description)
+    data = user_gpt_image_service.user_gpt_image_to_db(description)
     commit_data(data)
 
 
