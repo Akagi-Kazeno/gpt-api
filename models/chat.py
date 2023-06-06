@@ -2,8 +2,7 @@ import os
 
 import openai
 from dotenv import load_dotenv
-from revChatGPT.V1 import Chatbot, AsyncChatbot
-import asyncio
+from revChatGPT.V1 import AsyncChatbot
 
 import utils.json_utils
 import utils.limit_utils
@@ -56,6 +55,7 @@ def use_chat_completion(message: str):
                                         stop=None)
     return chat
 
+
 async def chat_ask(token, model, prompt) -> str:
     chatbot = AsyncChatbot(config={
         "access_token": token
@@ -65,6 +65,7 @@ async def chat_ask(token, model, prompt) -> str:
         response = d["message"]
     return response
 
+
 async def chat_conversation(token) -> str:
     chatbot = AsyncChatbot(config={
         "access_token": token
@@ -72,12 +73,14 @@ async def chat_conversation(token) -> str:
     data = await chatbot.get_conversations()
     return data
 
+
 async def chat_msg_history(token, convo_id) -> str:
     chatbot = AsyncChatbot(config={
         "access_token": token
     })
     data = await chatbot.get_msg_history(convo_id)
     return data
+
 
 # TODO:fix：无法测通，入参运行报错
 async def chat_gen_title(token, convo_id, message_id) -> str:
@@ -87,12 +90,14 @@ async def chat_gen_title(token, convo_id, message_id) -> str:
     data = await chatbot.gen_title(convo_id, message_id)
     return data
 
+
 async def chat_change_title(token, convo_id, title) -> str:
     chatbot = AsyncChatbot(config={
         "access_token": token
     })
     data = await chatbot.change_title(convo_id, title)
     return data
+
 
 async def chat_delete_conversation(token, convo_id) -> str:
     chatbot = AsyncChatbot(config={
@@ -101,10 +106,10 @@ async def chat_delete_conversation(token, convo_id) -> str:
     data = await chatbot.delete_conversation(convo_id)
     return data
 
+
 async def chat_clear_conversations(token) -> str:
     chatbot = AsyncChatbot(config={
         "access_token": token
     })
     data = await chatbot.clear_conversations()
     return data
-
