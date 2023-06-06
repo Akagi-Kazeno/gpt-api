@@ -2,8 +2,7 @@ import os
 
 import openai
 from dotenv import load_dotenv
-from revChatGPT.V1 import Chatbot, AsyncChatbot
-import asyncio
+from revChatGPT.V1 import AsyncChatbot
 
 import utils.json_utils
 import utils.limit_utils
@@ -55,6 +54,7 @@ def use_chat_completion(message: str):
                                         messages=message_list,
                                         stop=None)
     return chat
+
 
 async def web_chat(token, model, prompt) -> str:
     chatbot = AsyncChatbot(config={
