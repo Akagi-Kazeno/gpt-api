@@ -12,7 +12,7 @@
  Target Server Version : 150002 (150002)
  File Encoding         : 65001
 
- Date: 05/06/2023 14:55:16
+ Date: 06/06/2023 15:17:13
 */
 
 
@@ -73,6 +73,25 @@ CREATE TABLE "public"."gpt_image" (
 )
 ;
 ALTER TABLE "public"."gpt_image" OWNER TO "postgres";
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."user";
+CREATE TABLE "public"."user" (
+  "user_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "user_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "password" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "avatar" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "role" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "create_time" timestamp(6) NOT NULL,
+  "update_time" timestamp(6),
+  "last_login_time" timestamp(6),
+  "last_login_ip" varchar(255) COLLATE "pg_catalog"."default",
+  "is_delete" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+ALTER TABLE "public"."user" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for user_chat
@@ -140,6 +159,11 @@ ALTER TABLE "public"."completion" ADD CONSTRAINT "completion_pkey" PRIMARY KEY (
 -- Primary Key structure for table gpt_image
 -- ----------------------------
 ALTER TABLE "public"."gpt_image" ADD CONSTRAINT "gpt_image_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table user
+-- ----------------------------
+ALTER TABLE "public"."user" ADD CONSTRAINT "user_pkey" PRIMARY KEY ("user_id");
 
 -- ----------------------------
 -- Primary Key structure for table user_chat
