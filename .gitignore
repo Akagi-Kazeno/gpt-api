@@ -1,5 +1,6 @@
 .idea
 test
 static/log/*
+static/image/*
 .vscode
 .env.dev

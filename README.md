@@ -117,12 +117,21 @@ docker pull postgres:latest
                                                               # 密码↓
 docker run --name postgres -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgres
 ```
-
+-----
 # API接口
+* [chat](#chat)
+  1. [chat_ask](#1-chatask)
+  2. [chat_conversation](#2-chatconversation)
+  3. [chat_msg_history](#3-chatmsghistory)
+  4. [chat_change_title](#4-chatchangetitle)
+  5. [chat_delete_conversation](#5-chatdeleteconversation)
+  6. [chat_clear_conversations](#6-chatclearconversations)
 
-### 1.chat_ask
+-----
+## chat
+### 1. chat_ask
 询问
-### 请求方法（下同）：
+### 请求方法：
 ```bash
 Method: POST
 Type: RAW
@@ -131,26 +140,35 @@ URL: http://localhost:5000/api/chat/ask
 ### 请求体：
 ```json
 {
-  "token": "<chatgpt_token>",
+  "token": "chatgpt_token",
   "prompt": "内容"
 }
 ```
-### 返回实例：
+### 返回示例：
 ```json
 {
     "response": "我基于OpenAI的GPT-4架构进行训练，所以你可以说我是基于GPT-4的。"
 }
 ```
-### 2.chat_conversation
+
+-----
+
+### 2. chat_conversation
 获取 conversation
+### 请求方法：
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:5000/api/chat/conversation
+```
 ### 请求体：
 ```json
 {
-  "token": "<chatgpt_token>",
+  "token": "chatgpt_token",
   "prompt": "内容"
 }
 ```
-### 返回实例：
+### 返回示例：
 ```json
 {
   "id": "1befe7a2-0dea-4287-b1b4-922cdf73a027",
@@ -161,16 +179,25 @@ URL: http://localhost:5000/api/chat/ask
   "current_node": null
 }
 ```
-### 3.chat_msg_history
+
+-----
+
+### 3. chat_msg_history
 获取信息历史
+### 请求方法：
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:5000/api/chat/msg/history
+```
 ### 请求体：
 ```json
 {
-  "token": "<chatgpt_token>",
+  "token": "chatgpt_token",
   "convo_id": "5b001ff5-93c3-4844-b190-3ce35ca0466e"
 }
 ```
-### 返回实例：
+### 返回示例：
 ```json
 {
 	"title": "在GitHub创建pull request",
@@ -260,30 +287,48 @@ URL: http://localhost:5000/api/chat/ask
 	"current_node": "13ad9ffc-b2ed-412c-9e4a-c87c153a2325"
 }
 ```
-### 4.chat_change_title
+
+-----
+
+### 4. chat_change_title
 修改 conversation 的标题
+### 请求方法：
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:5000/api/chat/change/title
+```
 ### 请求体：
 ```json
 {
-  "token": "<chatgpt_token>",
+  "token": "chatgpt_token",
   "convo_id": "1befe7a2-0dea-4287-b1b4-922cdf73a027",
   "title": "测试"
 }
 ```
-### 返回实例：
+### 返回示例：
 ```json
 null
 ```
-### 5.chat_delete_conversation
+
+-----
+
+### 5. chat_delete_conversation
 删除 conversation
+### 请求方法：
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:5000/api/chat/delete/conversation
+```
 ### 请求体：
 ```json
 {
-  "token": "<chatgpt_token>",
+  "token": "chatgpt_token",
   "convo_id": "1befe7a2-0dea-4287-b1b4-922cdf73a027"
 }
 ```
-### 返回实例：
+### 返回示例：
 ```json
 null
 ```
@@ -291,15 +336,26 @@ null
 ```json
 null
 ```
-### 6.chat_clear_conversations
+
+-----
+
+### 6. chat_clear_conversations
 清除所有 conversation
+### 请求方法：
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:5000/api/chat/clear/conversations
+```
 ### 请求体：
 ```json
 {
-  "token": "<chatgpt_token>"
+  "token": "chatgpt_token"
 }
 ```
-### 返回实例：
+### 返回示例：
 ```json
 null
 ```
+-----
+[Back to api](#chat)
