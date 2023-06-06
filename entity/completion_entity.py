@@ -1,22 +1,14 @@
-import os
-import time
-from datetime import datetime
-
-from dotenv import load_dotenv
 # 导入sqlalchemy模块
-from sqlalchemy import create_engine, Column, String, Text, DATETIME
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import Column, String, Text, DATETIME
 
-import utils.session_utils
+from db_init import get_db_session, get_db_base, create_db_engine
 
-load_dotenv()
-
-# 创建一个数据库引擎，连接到gpt数据库
-engine = create_engine(os.getenv("DATABASE_URL"))
+# 创建一个数据库引擎，连接到数据库
+engine = create_db_engine()
 # 创建一个基类，用于定义表结构
-Base = declarative_base()
+Base = get_db_base()
 # 创建一个会话类，用于操作数据库
-Session = sessionmaker(bind=engine)
+Session = get_db_session()
 
 
 # 定义一个completion类，对应于completion表
@@ -37,54 +29,13 @@ class Completion(Base):
     create_time = Column(DATETIME, nullable=False)
 
 
-# 创建表结构，如果已存在则忽略
-Base.metadata.create_all(engine)
-# 创建一个会话对象，用于插入数据
-session = Session()
+def create_table():
+    # 创建表结构，如果已存在则忽略
+    create_table = Base.metadata.create_all(engine)
+    return create_table
 
 
-def completion_json_to_db(json_data):
-    """
-    处理对话返回的json并插入数据库
-    :param json_data:
-    :return:
-    """
-    for choice in json_data['choices']:
-        completion_obj = Completion()
-        completion_obj.id = json_data['id']
-        completion_obj.model = json_data['model']
-        completion_obj.object = json_data['object']
-        completion_obj.created = json_data['created']
-        completion_obj.finish_reason = choice['finish_reason']
-        completion_obj.index = choice['index']
-        completion_obj.logprobs = choice['logprobs']
-        completion_obj.text = choice['text']
-        completion_obj.completion_tokens = json_data['usage']['completion_tokens']
-        completion_obj.prompt_tokens = json_data['usage']['prompt_tokens']
-        completion_obj.total_tokens = json_data['usage']['total_tokens']
-        completion_obj.session = utils.session_utils.get_session_value()
-        timestamp = datetime.fromtimestamp(time.time())
-        completion_obj.create_time = timestamp
-        # 将completion对象添加到会话中
-        return completion_obj
-
-
-def get_completion_by_session(session_value):
-    """
-    获取数据库中相同session的对话内容
-    :param session_value:
-    :return:
-    """
-    completion_obj = session.query(Completion.text).filter(Completion.session == session_value).order_by(
-        Completion.create_time).all()
-    return completion_obj
-
-
-def count_completion_by_session(session_value):
-    """
-    计算数据库中相同session的对话数量
-    :param session_value:
-    :return:
-    """
-    completion_count: int = len(get_completion_by_session(session_value))
-    return completion_count
+def create_session():
+    # 创建一个会话对象，用于插入数据
+    session = Session()
+    return session

@@ -1,5 +1,5 @@
 # 导入sqlalchemy模块
-from sqlalchemy import Column, String, Text, DATETIME
+from sqlalchemy import Column, String, DATETIME
 
 from db_init import get_db_session, get_db_base, create_db_engine
 
@@ -11,13 +11,19 @@ Base = get_db_base()
 Session = get_db_session()
 
 
-# 定义一个UserChat类，对应于user_chat表
-class UserChatCompletion(Base):
-    __tablename__ = 'user_chat_completion'
-    id = Column(String(255), primary_key=True, nullable=False)
-    session = Column(String(255), nullable=False)
-    message = Column(Text, nullable=False)
+# 定义一个user类，对应于user表
+class User(Base):
+    __tablename__ = 'user'
+    user_id = Column(String(255), primary_key=True, nullable=False)
+    user_name = Column(String(255), nullable=False)
+    password = Column(String(255), nullable=False)
+    avatar = Column(String(255), nullable=False)
+    role = Column(String(255), nullable=False)
     create_time = Column(DATETIME, nullable=False)
+    update_time = Column(DATETIME)
+    last_login_time = Column(DATETIME)
+    last_login_ip = Column(String(255))
+    is_delete = Column(String(255), nullable=False)
 
 
 def create_table():
