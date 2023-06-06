@@ -1,7 +1,7 @@
 # 导入sqlalchemy模块
 from sqlalchemy import Column, String, DATETIME
 
-from db_init import get_db_session, get_db_base, create_db_engine
+from entity.db_init import get_db_session, get_db_base, create_db_engine
 
 # 创建一个数据库引擎，连接到数据库
 engine = create_db_engine()
