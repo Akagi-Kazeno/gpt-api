@@ -1,8 +1,6 @@
-import time
-from datetime import datetime
-
 from entity.completion_entity import Completion, create_session
 from utils.session_utils import get_session_value
+from utils.time_utils import timestamp_to_db
 
 
 def completion_json_to_db(json_data):
@@ -25,8 +23,7 @@ def completion_json_to_db(json_data):
         completion_obj.prompt_tokens = json_data['usage']['prompt_tokens']
         completion_obj.total_tokens = json_data['usage']['total_tokens']
         completion_obj.session = get_session_value()
-        timestamp = datetime.fromtimestamp(time.time())
-        completion_obj.create_time = timestamp
+        completion_obj.create_time = timestamp_to_db()
         # 将completion对象添加到会话中
         return completion_obj
 

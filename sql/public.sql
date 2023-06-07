@@ -12,7 +12,7 @@
  Target Server Version : 150002 (150002)
  File Encoding         : 65001
 
- Date: 06/06/2023 15:17:13
+ Date: 07/06/2023 15:39:03
 */
 
 
@@ -146,6 +146,29 @@ CREATE TABLE "public"."user_gpt_image" (
 ALTER TABLE "public"."user_gpt_image" OWNER TO "postgres";
 
 -- ----------------------------
+-- Table structure for web_chat_response
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_chat_response";
+CREATE TABLE "public"."web_chat_response" (
+  "web_chat_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "name" text COLLATE "pg_catalog"."default",
+  "role" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "citations" text COLLATE "pg_catalog"."default",
+  "conversation_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "end_turn" bool NOT NULL,
+  "finish_details" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "message" text COLLATE "pg_catalog"."default" NOT NULL,
+  "model" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "parent_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "recipient" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "session" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "create_time" timestamp(6) NOT NULL,
+  "chat_metadata" text COLLATE "pg_catalog"."default"
+)
+;
+ALTER TABLE "public"."web_chat_response" OWNER TO "postgres";
+
+-- ----------------------------
 -- Primary Key structure for table chat
 -- ----------------------------
 ALTER TABLE "public"."chat" ADD CONSTRAINT "chat_pkey" PRIMARY KEY ("id");
@@ -184,3 +207,8 @@ ALTER TABLE "public"."user_completion" ADD CONSTRAINT "user_completion_pkey" PRI
 -- Primary Key structure for table user_gpt_image
 -- ----------------------------
 ALTER TABLE "public"."user_gpt_image" ADD CONSTRAINT "user_gpt_image_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table web_chat_response
+-- ----------------------------
+ALTER TABLE "public"."web_chat_response" ADD CONSTRAINT "web_chat_response_pkey" PRIMARY KEY ("web_chat_id");

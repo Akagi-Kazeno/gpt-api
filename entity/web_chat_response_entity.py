@@ -1,5 +1,5 @@
 # 导入sqlalchemy模块
-from sqlalchemy import Column, String, Text, DATETIME
+from sqlalchemy import Column, String, Text, DATETIME, Boolean,JSON
 
 from entity.db_init import get_db_session, get_db_base, create_db_engine
 
@@ -11,20 +11,20 @@ Base = get_db_base()
 Session = get_db_session()
 
 
-# 定义一个completion类，对应于completion表
-class Completion(Base):
-    __tablename__ = 'completion'
-    id = Column(String(255), primary_key=True, nullable=False)
+class WebChatResponseEntity(Base):
+    __tablename__ = 'web_chat_response'
+    web_chat_id = Column(String(255), primary_key=True, nullable=False)
+    chat_metadata = Column(JSON, nullable=True)
+    name = Column(Text, nullable=True)
+    role = Column(String(255), nullable=True)
+    citations = Column(JSON, nullable=True)
+    conversation_id = Column(String(255), nullable=False)
+    end_turn = Column(Boolean, nullable=False)
+    finish_details = Column(String(255), nullable=False)
+    message = Column(Text, nullable=False)
     model = Column(String(255), nullable=False)
-    object = Column(String(255), nullable=False)
-    created = Column(String(255), nullable=False)
-    finish_reason = Column(String(255), nullable=False)
-    index = Column(String(255), nullable=False)
-    logprobs = Column(Text, nullable=True)
-    text = Column(Text, nullable=False)
-    completion_tokens = Column(String(255), nullable=False)
-    prompt_tokens = Column(String(255), nullable=False)
-    total_tokens = Column(String(255), nullable=False)
+    parent_id = Column(String(255), nullable=False)
+    recipient = Column(String(255), nullable=False)
     session = Column(String(255), nullable=False)
     create_time = Column(DATETIME, nullable=False)
 

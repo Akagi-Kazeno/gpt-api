@@ -1,8 +1,6 @@
-import time
-from datetime import datetime
-
 from entity.chat_entity import create_session, Chat
 from utils.session_utils import get_session_value
+from utils.time_utils import timestamp_to_db
 
 
 def chat_json_to_db(json_data: dict):
@@ -25,8 +23,7 @@ def chat_json_to_db(json_data: dict):
         chat_obj.prompt_tokens = json_data['usage']['prompt_tokens']
         chat_obj.total_tokens = json_data['usage']['total_tokens']
         chat_obj.session = get_session_value()
-        timestamp = datetime.fromtimestamp(time.time())
-        chat_obj.create_time = timestamp
+        chat_obj.create_time = timestamp_to_db()
         # 将chat对象添加到会话中
         return chat_obj
 

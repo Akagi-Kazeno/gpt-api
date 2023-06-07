@@ -926,14 +926,14 @@ files = [
 
 [[package]]
 name = "openai"
-version = "0.27.7"
+version = "0.27.8"
 description = "Python client library for the OpenAI API"
 category = "main"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-0.27.7-py3-none-any.whl", hash = "sha256:788fb7fa85bf7caac6c1ed7eea5984254a1bdaf09ef485acf0e5718c8b2dc25a"},
-    {file = "openai-0.27.7.tar.gz", hash = "sha256:bca95fd4c3054ef38924def096396122130454442ec52005915ecf8269626b1d"},
+    {file = "openai-0.27.8-py3-none-any.whl", hash = "sha256:e0a7c2f7da26bdbe5354b03c6d4b82a2f34bd4458c7a17ae1a7092c3e397e03c"},
+    {file = "openai-0.27.8.tar.gz", hash = "sha256:2483095c7db1eee274cebac79e315a986c4e55207bb4fa7b82d185b3a2ed9536"},
 ]
 
 [package.dependencies]
@@ -1330,14 +1330,14 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "revchatgpt"
-version = "6.0.3"
+version = "6.1.0"
 description = "ChatGPT is a reverse engineering of OpenAI's ChatGPT API"
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "revChatGPT-6.0.3-py3-none-any.whl", hash = "sha256:e58a82464f870d819dc436ac0225edd255995ba12d172c66bd1422f63a967969"},
-    {file = "revChatGPT-6.0.3.tar.gz", hash = "sha256:ca5beeec4b67206293df4b0fe6634cbed7bf42486df81c932930a4d3c2b67f98"},
+    {file = "revChatGPT-6.1.0-py3-none-any.whl", hash = "sha256:d132d00312d27ecb5130278e18b293dd6ae2a5c806fba608bb2fade32a7c2da6"},
+    {file = "revChatGPT-6.1.0.tar.gz", hash = "sha256:6debc5bc9c2e33433bc4b896021cdbcf3d1d5a1422d542770e201e3dc34b0f72"},
 ]
 
 [package.dependencies]
@@ -1699,4 +1699,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "6fac5c97d379a05ff1f4efa1d476cf00bac36f2412848ccebd0f56ef08fbe077"
+content-hash = "ed22f00d655e0bbf5df6d5d5e5cc15c7bc85c28319dac57274ffbc88fe99fcd7"

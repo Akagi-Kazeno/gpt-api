@@ -2,7 +2,7 @@ import json
 
 from entity.db_init import get_db_session, get_db_base, create_db_engine
 from service import chat_service, gpt_image_service, completion_service, user_chat_completion_service, \
-    user_chat_service, user_completion_service, user_gpt_image_service
+    user_chat_service, user_completion_service, user_gpt_image_service, web_chat_service
 
 # 导入sqlalchemy模块
 
@@ -86,7 +86,15 @@ def user_gpt_image_db_commit(description: str):
     commit_data(data)
 
 
-def commit_data(data):
+async def web_chat_res_to_db(json_data: dict):
+    """
+    将web_chat_res插入数据库
+    """
+    data = await web_chat_service.web_chat_res_to_db(json_data)
+    await commit_data(data)
+
+
+async def commit_data(data):
     """
     将数据提交至数据库
     :param data:

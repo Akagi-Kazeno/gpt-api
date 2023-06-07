@@ -1,9 +1,7 @@
-import time
-from datetime import datetime
-
 from entity.user_completion_entity import UserCompletion, create_session
 from utils.id_utils import simple_uuid
 from utils.session_utils import get_session_value
+from utils.time_utils import timestamp_to_db
 
 
 def user_completion_to_db(prompt: str):
@@ -16,8 +14,7 @@ def user_completion_to_db(prompt: str):
     user_completion_obj.id = simple_uuid()
     user_completion_obj.session = get_session_value()
     user_completion_obj.prompt = prompt
-    timestamp = datetime.fromtimestamp(time.time())
-    user_completion_obj.create_time = timestamp
+    user_completion_obj.create_time = timestamp_to_db()
     return user_completion_obj
 
 

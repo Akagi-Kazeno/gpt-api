@@ -147,6 +147,8 @@ def chat_ask():
         prompt = data.get('prompt')
         convo_id = data.get('convo_id')
         response = asyncio.run(models.web_chat.chat_ask(access_token, convo_id, model, prompt))
+        # 将回复数据插入数据库
+        asyncio.run(utils.db_utils.web_chat_res_to_db(response))
         return jsonify({'response': response})
 
 

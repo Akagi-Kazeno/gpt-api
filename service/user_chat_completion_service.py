@@ -1,9 +1,7 @@
-import time
-from datetime import datetime
-
 from entity.user_chat_completion_entity import UserChatCompletion, create_session
 from utils.id_utils import simple_uuid
 from utils.session_utils import get_session_value
+from utils.time_utils import timestamp_to_db
 
 
 def user_chat_completion_to_db(message):
@@ -16,8 +14,7 @@ def user_chat_completion_to_db(message):
     user_chat_obj.id = simple_uuid()
     user_chat_obj.session = get_session_value()
     user_chat_obj.message = message
-    timestamp = datetime.fromtimestamp(time.time())
-    user_chat_obj.create_time = timestamp
+    user_chat_obj.create_time = timestamp_to_db()
     return user_chat_obj
 
 
