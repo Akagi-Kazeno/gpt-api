@@ -1,16 +1,16 @@
 from revChatGPT.V1 import AsyncChatbot
 
 
-async def chat_ask(access_token: str, convo_id: str, model: str, prompt: str) -> str:
+async def chat_ask(access_token: str, convo_id: str, model: str, prompt: str) -> dict:
     """
     询问
     """
     chatbot = AsyncChatbot(config={
         "access_token": access_token
     })
-    response = ""
+    response = {}
     async for response_dict in chatbot.ask(prompt=prompt, model=model, conversation_id=convo_id):
-        response = response_dict["message"]
+        response = response_dict
     return response
 
 
