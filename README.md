@@ -140,14 +140,27 @@ URL: http://localhost:5000/api/chat/ask
 ### 请求体：
 ```json
 {
-  "token": "chatgpt_token",
   "prompt": "内容"
 }
 ```
 ### 返回示例：
 ```json
 {
-    "response": "我基于OpenAI的GPT-4架构进行训练，所以你可以说我是基于GPT-4的。"
+    "response": {
+        "author": {
+            "metadata": {},
+            "name": null,
+            "role": "assistant"
+        },
+        "citations": [],
+        "conversation_id": "47e1f050-0456-4c68-839b-36c3087492e6",
+        "end_turn": true,
+        "finish_details": "stop",
+        "message": "Hello! How can I assist you today?",
+        "model": "text-davinci-002-render-sha",
+        "parent_id": "8ee0b295-793a-4696-b1f2-ab5054351bc5",
+        "recipient": "all"
+    }
 }
 ```
 
@@ -164,7 +177,6 @@ URL: http://localhost:5000/api/chat/conversation
 ### 请求体：
 ```json
 {
-  "token": "chatgpt_token",
   "prompt": "内容"
 }
 ```
@@ -193,7 +205,6 @@ URL: http://localhost:5000/api/chat/msg/history
 ### 请求体：
 ```json
 {
-  "token": "chatgpt_token",
   "convo_id": "5b001ff5-93c3-4844-b190-3ce35ca0466e"
 }
 ```
@@ -301,7 +312,6 @@ URL: http://localhost:5000/api/chat/change/title
 ### 请求体：
 ```json
 {
-  "token": "chatgpt_token",
   "convo_id": "1befe7a2-0dea-4287-b1b4-922cdf73a027",
   "title": "测试"
 }
@@ -324,7 +334,6 @@ URL: http://localhost:5000/api/chat/delete/conversation
 ### 请求体：
 ```json
 {
-  "token": "chatgpt_token",
   "convo_id": "1befe7a2-0dea-4287-b1b4-922cdf73a027"
 }
 ```
@@ -349,9 +358,7 @@ URL: http://localhost:5000/api/chat/clear/conversations
 ```
 ### 请求体：
 ```json
-{
-  "token": "chatgpt_token"
-}
+{}
 ```
 ### 返回示例：
 ```json
