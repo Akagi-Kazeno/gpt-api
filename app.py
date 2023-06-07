@@ -7,9 +7,10 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-import models.chat
 import models.completions
+import models.gpt_chat
 import models.image
+import models.web_chat
 import utils.db_utils
 import utils.log_utils
 import utils.session_utils
@@ -19,6 +20,7 @@ app = Flask(__name__)
 cors = CORS(app)
 app.secret_key = os.getenv("SECRET_KEY")
 openai.api_key = os.getenv("OPENAI_API_KEY")
+OPENAI_ACCESS_TOKEN: str = os.getenv("OPENAI_ACCESS_TOKEN")
 app.permanent_session_lifetime = timedelta(days=float(os.getenv("SESSION_LIFETIME")))
 
 
@@ -51,7 +53,7 @@ def create_chat():
         data = request.get_json()
         creative = data["creative"]
         content = data["content"]
-        json_data = models.chat.chat(creative, content)
+        json_data = models.gpt_chat.chat(creative, content)
         utils.db_utils.chat_db_commit(json_data)
         utils.db_utils.user_chat_db_commit(content)
         return json_data
@@ -67,7 +69,7 @@ def completions_chat():
     if request.method == "POST":
         data = request.get_json()
         message = data["message"]
-        json_data = models.chat.chat_completion(message)
+        json_data = models.gpt_chat.chat_completion(message)
         utils.db_utils.chat_db_commit(json_data)
         utils.db_utils.user_chat_completion_to_db(message)
         return json_data
@@ -79,7 +81,7 @@ def chat_completion():
     if request.method == "POST":
         data = request.get_json()
         message = data["message"]
-        json_data = models.chat.use_chat_completion(message)
+        json_data = models.gpt_chat.use_chat_completion(message)
         utils.db_utils.chat_db_commit(json_data)
         utils.db_utils.user_chat_completion_to_db(message)
         return json_data
@@ -134,35 +136,43 @@ def edit_image():
 
 @app.route('/api/chat/ask', methods=['POST'])
 def chat_ask():
+    """
+    询问
+    """
     create_session_id()
     if request.method == 'POST':
         data = request.get_json()
-        token = data.get('token')
+        access_token = OPENAI_ACCESS_TOKEN
         model = data.get('model')
         prompt = data.get('prompt')
         convo_id = data.get('convo_id')
-        response = asyncio.run(models.chat.chat_ask(token, convo_id, model, prompt))
+        response = asyncio.run(models.web_chat.chat_ask(access_token, convo_id, model, prompt))
         return jsonify({'response': response})
 
 
 @app.route('/api/chat/conversation', methods=['POST'])
 def chat_conversation():
+    """
+    获取 conversation
+    """
     create_session_id()
     if request.method == 'POST':
-        data = request.get_json()
-        token = data.get('token')
-        response = asyncio.run(models.chat.chat_conversation(token))
+        access_token = OPENAI_ACCESS_TOKEN
+        response = asyncio.run(models.web_chat.chat_conversation(access_token))
         return jsonify({'response': response})
 
 
 @app.route('/api/chat/msg/history', methods=['POST'])
 def chat_msg_history():
+    """
+    根据id获取历史信息
+    """
     create_session_id()
     if request.method == 'POST':
         data = request.get_json()
-        token = data.get('token')
+        access_token = OPENAI_ACCESS_TOKEN
         convo_id = data.get('convo_id')
-        response = asyncio.run(models.chat.chat_msg_history(token, convo_id))
+        response = asyncio.run(models.web_chat.chat_msg_history(access_token, convo_id))
         return jsonify({'response': response})
 
 
@@ -171,43 +181,51 @@ def chat_gen_title():
     create_session_id()
     if request.method == 'POST':
         data = request.get_json()
-        token = data.get('token')
+        access_token = OPENAI_ACCESS_TOKEN
         convo_id = data.get('convo_id')
         message_id = data.get('message_id')
-        response = asyncio.run(models.chat.chat_gen_title(token, convo_id, message_id))
+        response = asyncio.run(models.web_chat.chat_gen_title(access_token, convo_id, message_id))
         return jsonify({'response': response})
 
 
 @app.route('/api/chat/change/title', methods=['POST'])
 def chat_change_title():
+    """
+    修改 conversation 的标题
+    """
     create_session_id()
     if request.method == 'POST':
         data = request.get_json()
-        token = data.get('token')
+        access_token = OPENAI_ACCESS_TOKEN
         convo_id = data.get('convo_id')
         title = data.get('title')
-        response = asyncio.run(models.chat.chat_change_title(token, convo_id, title))
+        response = asyncio.run(models.web_chat.chat_change_title(access_token, convo_id, title))
         return jsonify({'response': response})
 
 
 @app.route('/api/chat/delete/conversation', methods=['POST'])
 def chat_delete_conversation():
+    """
+    删除 conversation
+    """
     create_session_id()
     if request.method == 'POST':
         data = request.get_json()
-        token = data.get('token')
+        access_token = OPENAI_ACCESS_TOKEN
         convo_id = data.get('convo_id')
-        response = asyncio.run(models.chat.chat_delete_conversation(token, convo_id))
+        response = asyncio.run(models.web_chat.chat_delete_conversation(access_token, convo_id))
         return jsonify({'response': response})
 
 
 @app.route('/api/chat/clear/conversations', methods=['POST'])
 def chat_clear_conversations():
+    """
+    清除所有 conversation
+    """
     create_session_id()
     if request.method == 'POST':
-        data = request.get_json()
-        token = data.get('token')
-        response = asyncio.run(models.chat.chat_clear_conversations(token))
+        access_token = OPENAI_ACCESS_TOKEN
+        response = asyncio.run(models.web_chat.chat_clear_conversations(access_token))
         return jsonify({'response': response})
 
 
