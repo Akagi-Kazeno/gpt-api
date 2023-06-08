@@ -86,20 +86,26 @@ def user_gpt_image_db_commit(description: str):
     commit_data(data)
 
 
-async def web_chat_res_to_db(json_data: dict):
+def web_chat_res_to_db(json_data: dict):
     """
     将web_chat_res插入数据库
     """
-    data = await web_chat_service.web_chat_res_to_db(json_data)
-    await commit_data(data)
+    data = web_chat_service.web_chat_res_to_db(json_data)
+    commit_data(data)
 
 
-async def commit_data(data):
+def commit_data(data):
     """
     将数据提交至数据库
     :param data:
     :return:
     """
-    session.add(data)
-    session.commit()
-    session.close()
+    try:
+        session.add(data)
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        print(f"Error occurred when committing data: {e}")
+    finally:
+        session.close()
+
