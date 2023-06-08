@@ -4,7 +4,7 @@ from utils.session_utils import get_session_value
 from utils.time_utils import timestamp_to_db
 
 
-async def web_chat_res_to_db(json_data: dict):
+def web_chat_res_to_db(json_data: dict):
     """
        处理对话返回的json并插入数据库
        :param json_data

@@ -146,21 +146,13 @@ URL: http://localhost:5000/api/chat/ask
 ### 返回示例：
 ```json
 {
-    "response": {
-        "author": {
-            "metadata": {},
-            "name": null,
-            "role": "assistant"
-        },
-        "citations": [],
-        "conversation_id": "47e1f050-0456-4c68-839b-36c3087492e6",
-        "end_turn": true,
-        "finish_details": "stop",
-        "message": "Hello! How can I assist you today?",
-        "model": "text-davinci-002-render-sha",
-        "parent_id": "8ee0b295-793a-4696-b1f2-ab5054351bc5",
-        "recipient": "all"
-    }
+  'message': '你好！我是ChatGPT，有什么我可以帮助你的吗？', 
+  'conversation_id': '0b0127d9-be96-4798-95a9-47d2a2a2bc8a', 
+  'parent_id': '92e41fc1-4ef2-4b9d-b410-0c47f07a18d0', 
+  'model': 'text-davinci-002-render-sha', 
+  'finish_details': 'stop', 
+  'end_turn': True, 
+  'recipient': 'all'
 }
 ```
 
