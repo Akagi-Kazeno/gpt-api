@@ -12,7 +12,7 @@
  Target Server Version : 150002 (150002)
  File Encoding         : 65001
 
- Date: 07/06/2023 15:39:03
+ Date: 08/06/2023 13:32:22
 */
 
 
@@ -151,9 +151,6 @@ ALTER TABLE "public"."user_gpt_image" OWNER TO "postgres";
 DROP TABLE IF EXISTS "public"."web_chat_response";
 CREATE TABLE "public"."web_chat_response" (
   "web_chat_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "name" text COLLATE "pg_catalog"."default",
-  "role" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "citations" text COLLATE "pg_catalog"."default",
   "conversation_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "end_turn" bool NOT NULL,
   "finish_details" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -162,8 +159,7 @@ CREATE TABLE "public"."web_chat_response" (
   "parent_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "recipient" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "session" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "create_time" timestamp(6) NOT NULL,
-  "chat_metadata" text COLLATE "pg_catalog"."default"
+  "create_time" timestamp(6) NOT NULL
 )
 ;
 ALTER TABLE "public"."web_chat_response" OWNER TO "postgres";

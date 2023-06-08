@@ -14,10 +14,6 @@ Session = get_db_session()
 class WebChatResponseEntity(Base):
     __tablename__ = 'web_chat_response'
     web_chat_id = Column(String(255), primary_key=True, nullable=False)
-    chat_metadata = Column(JSON, nullable=True)
-    name = Column(Text, nullable=True)
-    role = Column(String(255), nullable=True)
-    citations = Column(JSON, nullable=True)
     conversation_id = Column(String(255), nullable=False)
     end_turn = Column(Boolean, nullable=False)
     finish_details = Column(String(255), nullable=False)
