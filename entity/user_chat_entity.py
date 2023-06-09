@@ -22,7 +22,7 @@ class UserChat(Base):
 
 def create_table():
     # 创建表结构，如果已存在则忽略
-    create_table = Base.chat_metadata.create_all(engine)
+    create_table = Base.create_all(engine)
     return create_table
 
 
