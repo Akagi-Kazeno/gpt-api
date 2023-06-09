@@ -1,7 +1,7 @@
 from revChatGPT.V1 import AsyncChatbot
-import asyncio
 
-async def chat_ask(access_token: str, convo_id: str, model: str, prompt: str) -> dict:
+
+async def chat_ask(access_token: str, convo_id: str | None, model: str, prompt: str) -> dict:
     """
     询问
     """
