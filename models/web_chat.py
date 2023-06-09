@@ -1,7 +1,7 @@
 from revChatGPT.V1 import AsyncChatbot
 
 
-async def chat_ask(access_token: str, convo_id: str | None, model: str, prompt: str) -> dict:
+async def chat_ask(access_token: str, convo_id: str | None, parent_id: str, model: str, prompt: str) -> dict:
     """
     询问
     """
@@ -9,7 +9,7 @@ async def chat_ask(access_token: str, convo_id: str | None, model: str, prompt: 
         "access_token": access_token
     })
     response = {}
-    async for response_dict in chatbot.ask(prompt=prompt, model=model, conversation_id=convo_id):
+    async for response_dict in chatbot.ask(prompt=prompt, model=model, conversation_id=convo_id, parent_id=parent_id):
         response = response_dict
     return response
 

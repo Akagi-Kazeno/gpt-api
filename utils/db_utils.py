@@ -2,7 +2,7 @@ import json
 
 from entity.db_init import get_db_session, get_db_base, create_db_engine
 from service import chat_service, gpt_image_service, completion_service, user_chat_completion_service, \
-    user_chat_service, user_completion_service, user_gpt_image_service, web_chat_service
+    user_chat_service, user_completion_service, user_gpt_image_service, web_chat_service, user_web_chat_service
 
 # 导入sqlalchemy模块
 
@@ -94,6 +94,11 @@ def web_chat_res_to_db(json_data: dict):
     commit_data(data)
 
 
+def user_web_chat_to_db(message: str):
+    data = user_web_chat_service.user_web_chat_to_db(message)
+    commit_data(data)
+
+
 def commit_data(data):
     """
     将数据提交至数据库
@@ -108,4 +113,3 @@ def commit_data(data):
         print(f"Error occurred when committing data: {e}")
     finally:
         session.close()
-

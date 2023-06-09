@@ -145,7 +145,14 @@ def chat_ask():
         access_token = OPENAI_ACCESS_TOKEN
         model = data.get('model')
         prompt = data.get('prompt')
-        response = asyncio.run(models.web_chat.chat_ask(access_token, convo_id=None, model=model, prompt=prompt))
+        parent_id = data.get('parent_id')
+        convo_id = data.get('convo_id')
+        try:
+            utils.db_utils.user_web_chat_to_db(prompt)
+        except:
+            raise Exception
+        response = asyncio.run(
+            models.web_chat.chat_ask(access_token, convo_id=convo_id, model=model, prompt=prompt, parent_id=parent_id))
         # 将回复数据插入数据库
         utils.db_utils.web_chat_res_to_db(response)
         return jsonify({'response': response})

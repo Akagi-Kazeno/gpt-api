@@ -125,12 +125,12 @@ docker run --name postgres -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgre
 # API接口
 
 * [chat](#chat)
-    1. [chat_ask](#1-chatask)
-    2. [chat_conversation](#2-chatconversation)
-    3. [chat_msg_history](#3-chatmsghistory)
-    4. [chat_change_title](#4-chatchangetitle)
-    5. [chat_delete_conversation](#5-chatdeleteconversation)
-    6. [chat_clear_conversations](#6-chatclearconversations)
+    1. [chat_ask](#1-chat_ask)
+    2. [chat_conversation](#2-chat_conversation)
+    3. [chat_msg_history](#3-chat_msg_history)
+    4. [chat_change_title](#4-chat_change_title)
+    5. [chat_delete_conversation](#5-chat_delete_conversation)
+    6. [chat_clear_conversations](#6-chat_clear_conversations)
 
 -----
 
@@ -147,12 +147,15 @@ Method: POST
 Type: RAW
 URL: http://localhost:5000/api/chat/ask
 ```
-
+若无convo_id和parent_id则新建对话，parent_id每次对话均需要变换为下一个，否则为修改原对话
 ### 请求体：
 
 ```json
 {
-  "prompt": "内容"
+"prompt": "我的上一句说的什么",
+"model": "gpt-4",
+"convo_id": "43d22e65-7f58-44b3-8e28-06037c92cd25",
+"parent_id":"bcd95af6-35f8-4a28-84eb-c859e9bd2e63"
 }
 ```
 
@@ -160,13 +163,15 @@ URL: http://localhost:5000/api/chat/ask
 
 ```json
 {
-  "message": "你好！我是ChatGPT，有什么我可以帮助你的吗？",
-  "conversation_id": "0b0127d9-be96-4798-95a9-47d2a2a2bc8a",
-  "parent_id": "92e41fc1-4ef2-4b9d-b410-0c47f07a18d0",
-  "model": "text-davinci-002-render-sha",
-  "finish_details": "stop",
-  "end_turn": true,
-  "recipient": "all"
+    "response": {
+        "conversation_id": "43d22e65-7f58-44b3-8e28-06037c92cd25",
+        "end_turn": true,
+        "finish_details": "stop",
+        "message": "你上一句话问的是：“你觉得3.5和4.0哪个厉害”。 这个问题的具体含义可能需要你提供更多上下文。 如果你在谈论特定的产品、技术、系统或其他东西的版本3.5和4.0，我可能需要更多的详细信息才能给出一个准确的答案。 但是，一般来说，高版本的数字通常代表着更多的功能、更好的性能或更高级的技术，尽管这并非总是如此。",
+        "model": "gpt-4",
+        "parent_id": "442a9844-4ba6-412d-a5c0-689d941c1005",
+        "recipient": "all"
+    }
 }
 ```
 
