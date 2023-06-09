@@ -1,5 +1,5 @@
 # 导入sqlalchemy模块
-from sqlalchemy import Column, String, Text, DATETIME, Boolean,JSON
+from sqlalchemy import Column, String, Text, DATETIME, Boolean
 
 from entity.db_init import get_db_session, get_db_base, create_db_engine
 
@@ -27,7 +27,7 @@ class WebChatResponseEntity(Base):
 
 def create_table():
     # 创建表结构，如果已存在则忽略
-    create_table = Base.chat_metadata.create_all(engine)
+    create_table = Base.create_all(engine)
     return create_table
 
 

@@ -125,12 +125,12 @@ docker run --name postgres -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgre
 # API接口
 
 * [chat](#chat)
-    1. [chat_ask](#1-chatask)
-    2. [chat_conversation](#2-chatconversation)
-    3. [chat_msg_history](#3-chatmsghistory)
-    4. [chat_change_title](#4-chatchangetitle)
-    5. [chat_delete_conversation](#5-chatdeleteconversation)
-    6. [chat_clear_conversations](#6-chatclearconversations)
+    1. [chat_ask](#1-chat_ask)
+    2. [chat_conversation](#2-chat_conversation)
+    3. [chat_msg_history](#3-chat_msg_history)
+    4. [chat_change_title](#4-chat_change_title)
+    5. [chat_delete_conversation](#5-chat_delete_conversation)
+    6. [chat_clear_conversations](#6-chat_clear_conversations)
 
 -----
 
@@ -147,16 +147,15 @@ Method: POST
 Type: RAW
 URL: http://localhost:5000/api/chat/ask
 ```
-
+若无convo_id和parent_id则新建对话，parent_id每次对话均需要变换为下一个，否则为修改原对话
 ### 请求体：
 
 ```json
-# 无convo_id和parent_id则新建对话，parent_id每次对话均需要变换为下一个，否则为修改原对话
 {
-  "prompt":"我的上一句说的什么",
-  "model":"gpt-4",
-  "convo_id":"43d22e65-7f58-44b3-8e28-06037c92cd25",
-  "parent_id":"bcd95af6-35f8-4a28-84eb-c859e9bd2e63"
+"prompt": "我的上一句说的什么",
+"model": "gpt-4",
+"convo_id": "43d22e65-7f58-44b3-8e28-06037c92cd25",
+"parent_id":"bcd95af6-35f8-4a28-84eb-c859e9bd2e63"
 }
 ```
 
