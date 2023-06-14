@@ -1,3 +1,5 @@
+# https://github.com/Akagi-Kazeno/gpt-api-frontend/blob/master/package.json
+# https://github.com/Akagi-Kazeno/gpt-api-frontend/blob/master/package.jsonhttps://github.com/Akagi-Kazeno/gpt-api-frontend/blob/master/package.json
 import os
 
 from dotenv import load_dotenv
