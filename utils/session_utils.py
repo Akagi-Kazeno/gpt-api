@@ -10,6 +10,7 @@ def create_session_id():
     """
     if 'session_id' not in session:
         session['session_id'] = str(time.time())
+        print(session)
     return session
 
 
