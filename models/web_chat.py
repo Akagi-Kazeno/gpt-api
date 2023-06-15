@@ -13,6 +13,7 @@ async def chat_ask(access_token: str, convo_id: str | None, parent_id: str, mode
         response = response_dict
     return response
 
+
 async def continue_write(access_token: str, convo_id: str, parent_id: str, model: str) -> dict:
     """
     询问
@@ -24,6 +25,7 @@ async def continue_write(access_token: str, convo_id: str, parent_id: str, model
     async for response_dict in chatbot.continue_write(model=model, conversation_id=convo_id, parent_id=parent_id):
         response = response_dict
     return response
+
 
 async def chat_conversation(access_token: str) -> list:
     """
