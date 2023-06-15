@@ -147,7 +147,9 @@ Method: POST
 Type: RAW
 URL: http://localhost:5000/api/chat/ask
 ```
+
 若无convo_id和parent_id则新建对话，parent_id每次对话均需要变换为下一个，否则为修改原对话
+
 ### 请求体：
 
 ```json
