@@ -1,5 +1,4 @@
-import entity.chat_entity
-import entity.user_chat_entity
+import service.chat_service
 import utils.session_utils
 
 SYSTEM_ROLE: str = "system"
@@ -15,7 +14,7 @@ def get_user_message():
     :return:
     """
     session_value = utils.session_utils.get_session_value()
-    user_message = entity.user_chat_entity.get_chat_obj_by_session(session_value)
+    user_message = service.chat_service.get_chat_obj_by_session(session_value)
     for index, message in enumerate(user_message):
         user_content_tuple = f"{message}"
         return user_content_tuple
@@ -40,7 +39,7 @@ def get_assistant_message():
     :return:
     """
     session_value = utils.session_utils.get_session_value()
-    assistant_message = entity.chat_entity.get_chat_obj_by_session(session_value)
+    assistant_message = service.chat_service.get_chat_obj_by_session(session_value)
     for index, message in enumerate(assistant_message):
         assistant_content_tuple = f"{message}"
         return assistant_content_tuple
