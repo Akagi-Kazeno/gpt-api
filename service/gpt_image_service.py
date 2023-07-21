@@ -1,6 +1,6 @@
 from entity.gpt_image_entity import GptImage, create_session
 from utils.id_utils import simple_uuid
-from utils.session_utils import get_session_value
+from utils.session_utils import get_session_value, create_session_id
 from utils.time_utils import timestamp_to_db
 
 
@@ -15,7 +15,10 @@ def gpt_image_json_to_db(json_data):
         gpt_image_obj.id = simple_uuid()
         gpt_image_obj.created = json_data['created']
         gpt_image_obj.b64_image = data['b64_json']
-        gpt_image_obj.session = get_session_value()
+        if gpt_image_obj.session is None:
+            gpt_image_obj.session = create_session_id()
+        else:
+            gpt_image_obj.session = get_session_value()
         gpt_image_obj.create_time = timestamp_to_db()
         # 将gpt_image_obj对象添加到会话中
         return gpt_image_obj

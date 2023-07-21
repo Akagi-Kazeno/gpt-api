@@ -1,6 +1,6 @@
 from entity.web_chat_response_entity import WebChatResponseEntity
 from utils.id_utils import simple_uuid
-from utils.session_utils import get_session_value
+from utils.session_utils import get_session_value, create_session_id
 from utils.time_utils import timestamp_to_db
 
 
@@ -19,7 +19,10 @@ def web_chat_res_to_db(json_data: dict):
     web_chat_res.model = json_data['model']
     web_chat_res.parent_id = json_data['parent_id']
     web_chat_res.recipient = json_data['recipient']
-    web_chat_res.session = get_session_value()
+    if web_chat_res.session is None:
+        web_chat_res.session = create_session_id()
+    else:
+        web_chat_res.session = get_session_value()
     web_chat_res.create_time = timestamp_to_db()
     # 将web_chat_res添加到会话中
     return web_chat_res

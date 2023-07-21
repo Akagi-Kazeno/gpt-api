@@ -48,7 +48,6 @@ def create_chat():
     创建chat请求
     :return:
     """
-    create_session_id()
     if request.method == "POST":
         data = request.get_json()
         creative = data["creative"]
@@ -65,7 +64,6 @@ def completions_chat():
     创建连续对话请求
     :return:
     """
-    create_session_id()
     if request.method == "POST":
         data = request.get_json()
         message = data["message"]
@@ -77,7 +75,6 @@ def completions_chat():
 
 @app.route('/chat/completion', methods=("GET", "POST"))
 def chat_completion():
-    create_session_id()
     if request.method == "POST":
         data = request.get_json()
         message = data["message"]
@@ -93,7 +90,6 @@ def create_completions():
     创建completions请求
     :return:
     """
-    create_session_id()
     if request.method == "POST":
         data = request.get_json()
         creative = data["creative"]
@@ -110,7 +106,6 @@ def create_image():
     创建生成图片请求
     :return:
     """
-    create_session_id()
     if request.method == "POST":
         data = request.get_json()
         description = data["description"]
@@ -124,7 +119,6 @@ def create_image():
 
 @app.route('/image/edit/gpt', methods=("GET", "POST"))
 def edit_image():
-    create_session_id()
     if request.method == "POST":
         data = request.get_json()
         image_path = data["imagePath"]
@@ -182,7 +176,6 @@ def chat_conversation():
     """
     获取 conversation
     """
-    create_session_id()
     if request.method == 'POST':
         access_token = OPENAI_ACCESS_TOKEN
         response = asyncio.run(models.web_chat.chat_conversation(access_token))
@@ -194,7 +187,6 @@ def chat_msg_history():
     """
     根据id获取历史信息
     """
-    create_session_id()
     if request.method == 'POST':
         data = request.get_json()
         access_token = OPENAI_ACCESS_TOKEN
@@ -205,7 +197,6 @@ def chat_msg_history():
 
 @app.route('/api/chat/gen/title', methods=['POST'])
 def chat_gen_title():
-    create_session_id()
     if request.method == 'POST':
         data = request.get_json()
         access_token = OPENAI_ACCESS_TOKEN
@@ -220,7 +211,6 @@ def chat_change_title():
     """
     修改 conversation 的标题
     """
-    create_session_id()
     if request.method == 'POST':
         data = request.get_json()
         access_token = OPENAI_ACCESS_TOKEN
@@ -235,7 +225,6 @@ def chat_delete_conversation():
     """
     删除 conversation
     """
-    create_session_id()
     if request.method == 'POST':
         data = request.get_json()
         access_token = OPENAI_ACCESS_TOKEN
@@ -249,7 +238,6 @@ def chat_clear_conversations():
     """
     清除所有 conversation
     """
-    create_session_id()
     if request.method == 'POST':
         access_token = OPENAI_ACCESS_TOKEN
         response = asyncio.run(models.web_chat.chat_clear_conversations(access_token))
