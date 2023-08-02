@@ -1,10 +1,10 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : gpt
+ Source Server         : Docker@PostgreSQL
  Source Server Type    : PostgreSQL
  Source Server Version : 150003 (150003)
- Source Host           : 127.0.0.1:5432
+ Source Host           : localhost:5432
  Source Catalog        : gpt-api
  Source Schema         : public
 
@@ -12,9 +12,24 @@
  Target Server Version : 150003 (150003)
  File Encoding         : 65001
 
- Date: 09/06/2023 17:30:36
+ Date: 02/08/2023 16:05:45
 */
 
+
+-- ----------------------------
+-- Table structure for access_token
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."access_token";
+CREATE TABLE "public"."access_token"
+(
+    "id"           varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+    "access_token" text COLLATE "pg_catalog"."default"         NOT NULL,
+    "create_time"  timestamp(6)                                NOT NULL,
+    "expire_time"  timestamp(6)                                NOT NULL,
+    "wxid"         varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+ALTER TABLE "public"."access_token" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for chat
@@ -37,6 +52,7 @@ CREATE TABLE "public"."chat"
     "create_time"       timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."chat" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for completion
@@ -59,6 +75,7 @@ CREATE TABLE "public"."completion"
     "create_time"       timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."completion" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for gpt_image
@@ -73,25 +90,7 @@ CREATE TABLE "public"."gpt_image"
     "create_time" timestamp(6)                                NOT NULL
 )
 ;
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS "public"."user";
-CREATE TABLE "public"."user"
-(
-    "user_id"         varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-    "user_name"       varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-    "password"        varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-    "avatar"          varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-    "role"            varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-    "create_time"     timestamp(6)                                NOT NULL,
-    "update_time"     timestamp(6),
-    "last_login_time" timestamp(6),
-    "last_login_ip"   varchar(255) COLLATE "pg_catalog"."default",
-    "is_delete"       varchar(255) COLLATE "pg_catalog"."default" NOT NULL
-)
-;
+ALTER TABLE "public"."gpt_image" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for user_chat
@@ -105,6 +104,7 @@ CREATE TABLE "public"."user_chat"
     "create_time" timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."user_chat" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for user_chat_completion
@@ -118,6 +118,7 @@ CREATE TABLE "public"."user_chat_completion"
     "create_time" timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."user_chat_completion" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for user_completion
@@ -131,6 +132,7 @@ CREATE TABLE "public"."user_completion"
     "create_time" timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."user_completion" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for user_gpt_image
@@ -144,6 +146,7 @@ CREATE TABLE "public"."user_gpt_image"
     "create_time" timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."user_gpt_image" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for user_web_chat
@@ -157,6 +160,7 @@ CREATE TABLE "public"."user_web_chat"
     "create_time" timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."user_web_chat" OWNER TO "postgres";
 
 -- ----------------------------
 -- Table structure for web_chat_response
@@ -176,6 +180,13 @@ CREATE TABLE "public"."web_chat_response"
     "create_time"     timestamp(6)                                NOT NULL
 )
 ;
+ALTER TABLE "public"."web_chat_response" OWNER TO "postgres";
+
+-- ----------------------------
+-- Primary Key structure for table access_token
+-- ----------------------------
+ALTER TABLE "public"."access_token"
+    ADD CONSTRAINT "access_token_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table chat
@@ -194,12 +205,6 @@ ALTER TABLE "public"."completion"
 -- ----------------------------
 ALTER TABLE "public"."gpt_image"
     ADD CONSTRAINT "gpt_image_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table user
--- ----------------------------
-ALTER TABLE "public"."user"
-    ADD CONSTRAINT "user_pkey" PRIMARY KEY ("user_id");
 
 -- ----------------------------
 -- Primary Key structure for table user_chat
