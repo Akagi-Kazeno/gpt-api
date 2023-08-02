@@ -136,9 +136,11 @@ def chat_ask():
     if request.method == 'POST':
         data = request.get_json()
         wxid = data.get('wxid')
-        access_token = utils.db_utils.get_access_token_from_db(wxid)['access_token']
-        if access_token is None:
+        access_token_json = utils.db_utils.get_access_token_from_db(wxid)
+        if access_token_json is None:
             access_token = OPENAI_ACCESS_TOKEN
+        else:
+            access_token = access_token_json.get('access_token')
         model = data.get('model')
         prompt = data.get('prompt')
         parent_id = data.get('parent_id')
