@@ -16,7 +16,7 @@ class AccessToken(Base):
     access_token = Column(Text, nullable=False)
     create_time = Column(DATETIME, nullable=False)
     expire_time = Column(DATETIME, nullable=False)
-    wxid = Column(String(255), nullable=False)
+    wxid = Column(String(255), nullable=True)
 
 
 def create_table():
