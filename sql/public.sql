@@ -12,7 +12,7 @@
  Target Server Version : 150003 (150003)
  File Encoding         : 65001
 
- Date: 02/08/2023 16:05:45
+ Date: 02/08/2023 16:13:17
 */
 
 
@@ -26,7 +26,7 @@ CREATE TABLE "public"."access_token"
     "access_token" text COLLATE "pg_catalog"."default"         NOT NULL,
     "create_time"  timestamp(6)                                NOT NULL,
     "expire_time"  timestamp(6)                                NOT NULL,
-    "wxid"         varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+    "wxid"         varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 ALTER TABLE "public"."access_token" OWNER TO "postgres";

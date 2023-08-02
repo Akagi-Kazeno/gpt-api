@@ -5,7 +5,7 @@ from utils.id_utils import simple_uuid
 from utils.time_utils import timestamp_to_db, access_token_expire_time
 
 
-def access_token_to_db(access_token: str, wxid: str):
+def access_token_to_db(access_token: str, wxid: str | None):
     """
     处理access_token并插入数据库
     :param access_token
