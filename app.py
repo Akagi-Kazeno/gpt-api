@@ -42,7 +42,7 @@ def create_session_id():
     utils.session_utils.create_session_id()
 
 
-@app.route('/chat', methods=("GET", "POST"))
+@app.route('/api/chat', methods=['GET', 'POST'])
 def create_chat():
     """
     创建chat请求
@@ -58,7 +58,7 @@ def create_chat():
         return json_data
 
 
-@app.route('/chat/completions', methods=("GET", "POST"))
+@app.route('/api/chat/completions', methods=['GET', 'POST'])
 def completions_chat():
     """
     创建连续对话请求
@@ -73,7 +73,7 @@ def completions_chat():
         return json_data
 
 
-@app.route('/chat/completion', methods=("GET", "POST"))
+@app.route('/api/chat/completion', methods=['GET', 'POST'])
 def chat_completion():
     if request.method == "POST":
         data = request.get_json()
@@ -84,7 +84,7 @@ def chat_completion():
         return json_data
 
 
-@app.route('/completion', methods=("GET", "POST"))
+@app.route('/api/completion', methods=['GET', 'POST'])
 def create_completions():
     """
     创建completions请求
@@ -100,7 +100,7 @@ def create_completions():
         return json_data
 
 
-@app.route('/image/gpt', methods=("GET", "POST"))
+@app.route('/api/image/gpt', methods=['GET', 'POST'])
 def create_image():
     """
     创建生成图片请求
@@ -117,7 +117,7 @@ def create_image():
         return json_data
 
 
-@app.route('/image/edit/gpt', methods=("GET", "POST"))
+@app.route('/api/image/edit/gpt', methods=['GET', 'POST'])
 def edit_image():
     if request.method == "POST":
         data = request.get_json()
@@ -128,7 +128,7 @@ def edit_image():
         return models.image.gpt_edit_image(image_path, description, num, mask_path)
 
 
-@app.route('/api/chat/ask', methods=['POST'])
+@app.route('/api/chat/ask', methods=['GET', 'POST'])
 def chat_ask():
     """
     询问
@@ -152,7 +152,7 @@ def chat_ask():
         return jsonify({'response': response})
 
 
-@app.route('/api/chat/continue_write', methods=['POST'])
+@app.route('/api/chat/continue_write', methods=['GET', 'POST'])
 def chat_continue_write():
     """
     询问
@@ -171,7 +171,7 @@ def chat_continue_write():
         return jsonify({'response': response})
 
 
-@app.route('/api/chat/conversation', methods=['POST'])
+@app.route('/api/chat/conversation', methods=['GET', 'POST'])
 def chat_conversation():
     """
     获取 conversation
@@ -182,7 +182,7 @@ def chat_conversation():
         return jsonify({'response': response})
 
 
-@app.route('/api/chat/msg/history', methods=['POST'])
+@app.route('/api/chat/msg/history', methods=['GET', 'POST'])
 def chat_msg_history():
     """
     根据id获取历史信息
@@ -195,7 +195,7 @@ def chat_msg_history():
         return jsonify({'response': response})
 
 
-@app.route('/api/chat/gen/title', methods=['POST'])
+@app.route('/api/chat/gen/title', methods=['GET', 'POST'])
 def chat_gen_title():
     if request.method == 'POST':
         data = request.get_json()
@@ -206,7 +206,7 @@ def chat_gen_title():
         return jsonify({'response': response})
 
 
-@app.route('/api/chat/change/title', methods=['POST'])
+@app.route('/api/chat/change/title', methods=['GET', 'POST'])
 def chat_change_title():
     """
     修改 conversation 的标题
@@ -220,7 +220,7 @@ def chat_change_title():
         return jsonify({'response': response})
 
 
-@app.route('/api/chat/delete/conversation', methods=['POST'])
+@app.route('/api/chat/delete/conversation', methods=['GET', 'POST'])
 def chat_delete_conversation():
     """
     删除 conversation
@@ -233,7 +233,7 @@ def chat_delete_conversation():
         return jsonify({'response': response})
 
 
-@app.route('/api/chat/clear/conversations', methods=['POST'])
+@app.route('/api/chat/clear/conversations', methods=['GET', 'POST'])
 def chat_clear_conversations():
     """
     清除所有 conversation
@@ -242,6 +242,33 @@ def chat_clear_conversations():
         access_token = OPENAI_ACCESS_TOKEN
         response = asyncio.run(models.web_chat.chat_clear_conversations(access_token))
         return jsonify({'response': response})
+
+
+@app.route('/api/post/access_token', methods=['GET', 'POST'])
+def post_access_token():
+    if request.method == 'POST':
+        data = request.get_json()
+        access_token = data.get('access_token')
+        wxid = data.get('wxid')
+        try:
+            response = utils.db_utils.access_token_to_db(access_token, wxid)
+            return jsonify({'response': response})
+        except Exception as e:
+            return jsonify({'error': e})
+
+
+@app.route('/api/get/access_token', methods=['GET', 'POST'])
+def get_access_token():
+    if request.method == 'POST':
+        data = request.get_json()
+        wxid = data.get('wxid')
+        try:
+            response = utils.db_utils.get_access_token_from_db(wxid)
+            if response is None:
+                return jsonify({'access_token': None})
+            return jsonify({'access_token': response[0]})
+        except Exception as e:
+            return jsonify({'error': e})
 
 
 if __name__ == '__main__':

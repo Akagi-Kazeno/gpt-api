@@ -1,5 +1,4 @@
-# 导入sqlalchemy模块
-from sqlalchemy import Column, String, DATETIME
+from sqlalchemy import Column, String, Text, DATETIME
 
 from entity.db_init import get_db_session, get_db_base, create_db_engine
 
@@ -11,19 +10,13 @@ Base = get_db_base()
 Session = get_db_session()
 
 
-# 定义一个user类，对应于user表
-class User(Base):
-    __tablename__ = 'user'
-    user_id = Column(String(255), primary_key=True, nullable=False)
-    user_name = Column(String(255), nullable=False)
-    password = Column(String(255), nullable=False)
-    avatar = Column(String(255), nullable=False)
-    role = Column(String(255), nullable=False)
+class AccessToken(Base):
+    __tablename__ = 'access_token'
+    id = Column(String(255), primary_key=True, nullable=False)
+    access_token = Column(Text, nullable=False)
     create_time = Column(DATETIME, nullable=False)
-    update_time = Column(DATETIME)
-    last_login_time = Column(DATETIME)
-    last_login_ip = Column(String(255))
-    is_delete = Column(String(255), nullable=False)
+    expire_time = Column(DATETIME, nullable=False)
+    wxid = Column(String(255), nullable=False)
 
 
 def create_table():
