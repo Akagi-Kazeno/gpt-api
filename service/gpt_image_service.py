@@ -16,7 +16,8 @@ def gpt_image_json_to_db(json_data):
         gpt_image_obj.created = json_data['created']
         gpt_image_obj.b64_image = data['b64_json']
         if gpt_image_obj.session is None:
-            gpt_image_obj.session = create_session_id()
+            create_session_id()
+            gpt_image_obj.session = get_session_value()
         else:
             gpt_image_obj.session = get_session_value()
         gpt_image_obj.create_time = timestamp_to_db()

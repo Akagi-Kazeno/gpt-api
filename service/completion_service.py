@@ -23,7 +23,8 @@ def completion_json_to_db(json_data):
         completion_obj.prompt_tokens = json_data['usage']['prompt_tokens']
         completion_obj.total_tokens = json_data['usage']['total_tokens']
         if completion_obj.session is None:
-            completion_obj.session = create_session_id()
+            create_session_id()
+            completion_obj.session = get_session_value()
         else:
             completion_obj.session = get_session_value()
         completion_obj.create_time = timestamp_to_db()

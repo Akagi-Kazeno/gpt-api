@@ -13,7 +13,8 @@ def user_completion_to_db(prompt: str):
     user_completion_obj = UserCompletion()
     user_completion_obj.id = simple_uuid()
     if user_completion_obj.session is None:
-        user_completion_obj.session = create_session_id()
+        create_session_id()
+        user_completion_obj.session = get_session_value()
     else:
         user_completion_obj.session = get_session_value()
     user_completion_obj.prompt = prompt
