@@ -131,17 +131,16 @@ def edit_image():
 @app.route('/api/chat/ask', methods=['GET', 'POST'])
 def chat_ask():
     """
-    询问
+    使用access_token聊天
     """
     if request.method == 'POST':
         data = request.get_json()
         wxid = data.get('wxid')
-        access_token_value = utils.db_utils.get_access_token_from_db(wxid)
-        access_token_json = {'access_token': access_token_value[0]}
-        if access_token_json is None:
+        access_token_json = utils.db_utils.get_access_token_from_db(wxid)
+        if access_token_json is None or not access_token_json:
             access_token = OPENAI_ACCESS_TOKEN
         else:
-            access_token = access_token_json.get('access_token')
+            access_token = access_token_json[0]
         model = data.get('model')
         prompt = data.get('prompt')
         parent_id = data.get('parent_id')

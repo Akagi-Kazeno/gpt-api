@@ -1,5 +1,5 @@
 from entity.chat_entity import create_session, Chat
-from utils.session_utils import get_session_value, create_session_id
+from utils.session_utils import create_new_session, get_session_value
 from utils.time_utils import timestamp_to_db
 
 
@@ -23,8 +23,7 @@ def chat_json_to_db(json_data: dict):
         chat_obj.prompt_tokens = json_data['usage']['prompt_tokens']
         chat_obj.total_tokens = json_data['usage']['total_tokens']
         if chat_obj.session is None:
-            create_session_id()
-            chat_obj.session = get_session_value()
+            chat_obj.session = create_new_session()
         else:
             chat_obj.session = get_session_value()
         chat_obj.create_time = timestamp_to_db()
