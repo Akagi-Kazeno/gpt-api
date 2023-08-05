@@ -10,7 +10,6 @@ def create_session_id():
     """
     if 'session_id' not in session:
         session['session_id'] = str(time.time())
-        # print(session)
     return session
 
 
@@ -39,3 +38,14 @@ def delete_session():
     """
     if 'session_id' in session:
         session.pop('session_id')
+
+
+def create_new_session():
+    """
+    创建新的session
+    """
+    session_value = request.cookies.get('session')
+    if session_value is None:
+        create_session_id()
+        session_value = request.cookies.get('session')
+    return session_value

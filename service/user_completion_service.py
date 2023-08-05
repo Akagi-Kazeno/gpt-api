@@ -1,6 +1,6 @@
 from entity.user_completion_entity import UserCompletion, create_session
 from utils.id_utils import simple_uuid
-from utils.session_utils import get_session_value, create_session_id
+from utils.session_utils import get_session_value, create_new_session
 from utils.time_utils import timestamp_to_db
 
 
@@ -13,8 +13,7 @@ def user_completion_to_db(prompt: str):
     user_completion_obj = UserCompletion()
     user_completion_obj.id = simple_uuid()
     if user_completion_obj.session is None:
-        create_session_id()
-        user_completion_obj.session = get_session_value()
+        user_completion_obj.session = create_new_session()
     else:
         user_completion_obj.session = get_session_value()
     user_completion_obj.prompt = prompt

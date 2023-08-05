@@ -1,6 +1,6 @@
 from entity.gpt_image_entity import GptImage, create_session
 from utils.id_utils import simple_uuid
-from utils.session_utils import get_session_value, create_session_id
+from utils.session_utils import get_session_value, create_new_session
 from utils.time_utils import timestamp_to_db
 
 
@@ -16,8 +16,7 @@ def gpt_image_json_to_db(json_data):
         gpt_image_obj.created = json_data['created']
         gpt_image_obj.b64_image = data['b64_json']
         if gpt_image_obj.session is None:
-            create_session_id()
-            gpt_image_obj.session = get_session_value()
+            gpt_image_obj.session = create_new_session()
         else:
             gpt_image_obj.session = get_session_value()
         gpt_image_obj.create_time = timestamp_to_db()
