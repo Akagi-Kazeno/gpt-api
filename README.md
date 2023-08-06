@@ -131,6 +131,8 @@ docker run --name postgres -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgre
     4. [chat_change_title](#4-chat_change_title)
     5. [chat_delete_conversation](#5-chat_delete_conversation)
     6. [chat_clear_conversations](#6-chat_clear_conversations)
+    7. [post_access_token](#7-post_access_token)
+    8. [get_access_token](#8-get_access_token)
 
 -----
 
@@ -154,10 +156,10 @@ URL: http://localhost:5000/api/chat/ask
 
 ```json
 {
-"prompt": "我的上一句说的什么",
-"model": "gpt-4",
-"convo_id": "43d22e65-7f58-44b3-8e28-06037c92cd25",
-"parent_id":"bcd95af6-35f8-4a28-84eb-c859e9bd2e63"
+  "prompt": "我的上一句说的什么",
+  "model": "gpt-4",
+  "convo_id": "43d22e65-7f58-44b3-8e28-06037c92cd25",
+  "parent_id": "bcd95af6-35f8-4a28-84eb-c859e9bd2e63"
 }
 ```
 
@@ -165,15 +167,15 @@ URL: http://localhost:5000/api/chat/ask
 
 ```json
 {
-    "response": {
-        "conversation_id": "43d22e65-7f58-44b3-8e28-06037c92cd25",
-        "end_turn": true,
-        "finish_details": "stop",
-        "message": "你上一句话问的是：“你觉得3.5和4.0哪个厉害”。 这个问题的具体含义可能需要你提供更多上下文。 如果你在谈论特定的产品、技术、系统或其他东西的版本3.5和4.0，我可能需要更多的详细信息才能给出一个准确的答案。 但是，一般来说，高版本的数字通常代表着更多的功能、更好的性能或更高级的技术，尽管这并非总是如此。",
-        "model": "gpt-4",
-        "parent_id": "442a9844-4ba6-412d-a5c0-689d941c1005",
-        "recipient": "all"
-    }
+  "response": {
+    "conversation_id": "43d22e65-7f58-44b3-8e28-06037c92cd25",
+    "end_turn": true,
+    "finish_details": "stop",
+    "message": "你上一句话问的是：“你觉得3.5和4.0哪个厉害”。 这个问题的具体含义可能需要你提供更多上下文。 如果你在谈论特定的产品、技术、系统或其他东西的版本3.5和4.0，我可能需要更多的详细信息才能给出一个准确的答案。 但是，一般来说，高版本的数字通常代表着更多的功能、更好的性能或更高级的技术，尽管这并非总是如此。",
+    "model": "gpt-4",
+    "parent_id": "442a9844-4ba6-412d-a5c0-689d941c1005",
+    "recipient": "all"
+  }
 }
 ```
 
@@ -427,6 +429,69 @@ URL: http://localhost:5000/api/chat/clear/conversations
 
 ```json
 null
+```
+
+### 7.post_access_token
+
+添加access_token
+
+### 请求方法：
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:5000/api/post/access_token
+```
+
+### 请求体:
+
+```json
+{
+  "access_token": "xxxxx"
+}
+```
+
+```json
+{
+  "access_token": "xxxxx",
+  "wxid": "wxid_xxxxx"
+}
+```
+
+### 返回示例：
+
+```json
+{
+  "response": null
+}
+```
+
+### 8.get_access_token
+
+获取access_token
+
+### 请求方法：
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:5000/api/get/access_token
+```
+
+### 请求体:
+
+```json
+{
+  "wxid": "wxid_xxxxx"
+}
+```
+
+### 返回示例：
+
+```json
+{
+  "access_token": "xxxxx"
+}
 ```
 
 -----

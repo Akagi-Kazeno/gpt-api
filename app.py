@@ -34,12 +34,12 @@ def new_log():
 
 
 @app.before_request
-def create_session_id():
+def create_session_time_stamp():
     """
     请求前创建session_id
     :return:
     """
-    utils.session_utils.create_session_id()
+    utils.session_utils.create_session_time_stamp()
 
 
 @app.route('/api/chat', methods=['GET', 'POST'])
