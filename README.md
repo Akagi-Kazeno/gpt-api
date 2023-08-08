@@ -125,14 +125,14 @@ docker run --name postgres -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgre
 # API接口
 
 * [chat](#chat)
-    1. [chat_ask](#1-chat_ask)
-    2. [chat_conversation](#2-chat_conversation)
-    3. [chat_msg_history](#3-chat_msg_history)
-    4. [chat_change_title](#4-chat_change_title)
-    5. [chat_delete_conversation](#5-chat_delete_conversation)
-    6. [chat_clear_conversations](#6-chat_clear_conversations)
-    7. [post_access_token](#7-post_access_token)
-    8. [get_access_token](#8-get_access_token)
+    1. [chat_ask](#1-chatask)
+    2. [chat_conversation](#2-chatconversation)
+    3. [chat_msg_history](#3-chatmsghistory)
+    4. [chat_change_title](#4-chatchangetitle)
+    5. [chat_delete_conversation](#5-chatdeleteconversation)
+    6. [chat_clear_conversations](#6-chatclearconversations)
+    7. [post_access_token](#7-postaccesstoken)
+    8. [get_access_token](#8-getaccesstoken)
 
 -----
 
@@ -431,7 +431,7 @@ URL: http://localhost:5000/api/chat/clear/conversations
 null
 ```
 
-### 7.post_access_token
+### 7. post_access_token
 
 添加access_token
 
@@ -466,7 +466,7 @@ URL: http://localhost:5000/api/post/access_token
 }
 ```
 
-### 8.get_access_token
+### 8. get_access_token
 
 获取access_token
 
