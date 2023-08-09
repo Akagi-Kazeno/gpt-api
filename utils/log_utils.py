@@ -17,7 +17,7 @@ def create_log(filename: str):
     logger.setLevel(logging.NOTSET)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(funcName)s')
     log_path = os.getenv("LOG_PATH")
-    max_log_size = int(os.getenv("MAX_LOG_SIZE"))
+    max_log_size = 10 * 1024 * 1024
     log_file = RotatingFileHandler(log_path + filename, maxBytes=max_log_size, backupCount=10, encoding="utf-8")
     log_file.setFormatter(formatter)
     logger.addHandler(log_file)
