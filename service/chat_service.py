@@ -22,7 +22,7 @@ def chat_json_to_db(json_data: dict):
         chat_obj.completion_tokens = json_data['usage']['completion_tokens']
         chat_obj.prompt_tokens = json_data['usage']['prompt_tokens']
         chat_obj.total_tokens = json_data['usage']['total_tokens']
-        if chat_obj.session is None:
+        if chat_obj.session is None or not chat_obj.session:
             chat_obj.session = create_new_session()
         else:
             chat_obj.session = get_session_value()

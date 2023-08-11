@@ -12,7 +12,7 @@ def user_gpt_image_to_db(description: str):
     """
     user_gpt_image_obj = UserGptImage()
     user_gpt_image_obj.id = simple_uuid()
-    if user_gpt_image_obj.session is None:
+    if user_gpt_image_obj.session is None or not user_gpt_image_obj.session:
         user_gpt_image_obj.session = create_new_session()
     else:
         user_gpt_image_obj.session = get_session_value()
