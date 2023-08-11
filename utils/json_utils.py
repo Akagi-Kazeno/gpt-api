@@ -94,9 +94,6 @@ def create_user_chat_message_list(message: str):
     user_message_list: list = create_user_message_list()
     if len(user_message_list) == 0:
         user_message_list = create_user_primer_message_list(message)
-    elif len(user_message_list) > 20:
-        utils.session_utils.delete_session()
-        raise Exception("对话次数已达上限,让我们重新开始吧")
     else:
         assistant_message_list: list = create_assistant_message_list()
         # 使用zip函数和列表推导式将两个列表交叉合并

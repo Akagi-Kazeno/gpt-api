@@ -12,7 +12,7 @@ def user_chat_to_db(message: str):
     """
     user_chat_obj = UserChat()
     user_chat_obj.id = simple_uuid()
-    if user_chat_obj.session is None:
+    if user_chat_obj.session is None or not user_chat_obj.session:
         user_chat_obj.session = create_new_session()
     else:
         user_chat_obj.session = get_session_value()

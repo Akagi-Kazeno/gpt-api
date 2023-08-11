@@ -19,7 +19,7 @@ def web_chat_res_to_db(json_data: dict):
     web_chat_res.model = json_data['model']
     web_chat_res.parent_id = json_data['parent_id']
     web_chat_res.recipient = json_data['recipient']
-    if web_chat_res.session is None:
+    if web_chat_res.session is None or not web_chat_res.session:
         web_chat_res.session = create_new_session()
     else:
         web_chat_res.session = get_session_value()

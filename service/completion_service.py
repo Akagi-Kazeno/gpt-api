@@ -22,7 +22,7 @@ def completion_json_to_db(json_data):
         completion_obj.completion_tokens = json_data['usage']['completion_tokens']
         completion_obj.prompt_tokens = json_data['usage']['prompt_tokens']
         completion_obj.total_tokens = json_data['usage']['total_tokens']
-        if completion_obj.session is None:
+        if completion_obj.session is None or not completion_obj.session:
             completion_obj.session = create_new_session()
         else:
             completion_obj.session = get_session_value()

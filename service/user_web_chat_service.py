@@ -8,7 +8,7 @@ def user_web_chat_to_db(message: str):
     user_web_chat_obj = UserWebChat()
     user_web_chat_obj.id = simple_uuid()
     user_web_chat_obj.message = message
-    if user_web_chat_obj.session is None:
+    if user_web_chat_obj.session is None or not user_web_chat_obj.session:
         user_web_chat_obj.session = create_new_session()
     else:
         user_web_chat_obj.session = get_session_value()
