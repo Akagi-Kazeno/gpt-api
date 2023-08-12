@@ -50,9 +50,10 @@ def create_chat():
     """
     if request.method == "POST":
         data = request.get_json()
+        model = data["model"]
         creative = data["creative"]
         content = data["content"]
-        json_data = models.gpt_chat.chat(creative, content)
+        json_data = models.gpt_chat.chat(model, creative, content)
         utils.db_utils.chat_db_commit(json_data)
         utils.db_utils.user_chat_db_commit(content)
         return json_data
@@ -66,8 +67,9 @@ def completions_chat():
     """
     if request.method == "POST":
         data = request.get_json()
+        model = data["model"]
         message = data["message"]
-        json_data = models.gpt_chat.chat_completion(message)
+        json_data = models.gpt_chat.chat_completion(model, message)
         utils.db_utils.chat_db_commit(json_data)
         utils.db_utils.user_chat_completion_to_db(message)
         return json_data
@@ -77,8 +79,9 @@ def completions_chat():
 def chat_completion():
     if request.method == "POST":
         data = request.get_json()
+        model = data["model"]
         message = data["message"]
-        json_data = models.gpt_chat.use_chat_completion(message)
+        json_data = models.gpt_chat.use_chat_completion(model, message)
         utils.db_utils.chat_db_commit(json_data)
         utils.db_utils.user_chat_completion_to_db(message)
         return json_data
@@ -92,9 +95,10 @@ def create_completions():
     """
     if request.method == "POST":
         data = request.get_json()
+        model = data["model"]
         creative = data["creative"]
         prompt = data["prompt"]
-        json_data = models.completions.completions(creative, prompt)
+        json_data = models.completions.completions(model, creative, prompt)
         utils.db_utils.completion_db_commit(json_data)
         utils.db_utils.user_completion_db_commit(prompt)
         return json_data
@@ -147,8 +151,8 @@ def chat_ask():
         convo_id = data.get('convo_id')
         try:
             utils.db_utils.user_web_chat_to_db(prompt)
-        except:
-            raise Exception
+        except Exception as e:
+            raise e
         response = asyncio.run(
             models.web_chat.chat_ask(access_token, convo_id=convo_id, model=model, prompt=prompt, parent_id=parent_id))
         utils.db_utils.web_chat_res_to_db(response)

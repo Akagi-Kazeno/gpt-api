@@ -11,11 +11,11 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-def chat(creative: float, content: str):
+def chat(model: str, creative: float, content: str):
     # 限制接口请求次数
     utils.limit_utils.check_limit()
     # 请求openai的chat接口
-    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+    completion = openai.ChatCompletion.create(model=model,
                                               messages=[
                                                   # Change the prompt parameter to the messages parameter
                                                   {'role': 'user', 'content': content}
@@ -27,7 +27,7 @@ def chat(creative: float, content: str):
     # return chat_completion['choices'][0]['message']['content']
 
 
-def chat_completion(message: list):
+def chat_completion(model: str, message: list):
     # 限制接口请求次数
     utils.limit_utils.check_limit()
     # 请求openai的连续对话接口
@@ -39,17 +39,17 @@ def chat_completion(message: list):
     for roles in message:
         if roles['role'] not in {"system", "user", "assistant"}:
             raise Exception('输入角色仅支持"system","user","assistant"')
-    chat = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+    chat = openai.ChatCompletion.create(model=model,
                                         messages=message,
                                         stop=None)
     return chat
 
 
-def use_chat_completion(message: str):
+def use_chat_completion(model: str, message: str):
     # 限制接口请求次数
     utils.limit_utils.check_limit()
     message_list: list = utils.json_utils.create_user_chat_message_list(message)
-    chat = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+    chat = openai.ChatCompletion.create(model=model,
                                         messages=message_list,
                                         stop=None)
     return chat
