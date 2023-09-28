@@ -1,7 +1,7 @@
 import uuid
 
 
-def simple_uuid():
+def simple_uuid() -> str:
     """
     获取uuid
     :return:

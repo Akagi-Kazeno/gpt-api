@@ -20,7 +20,7 @@ def get_user_message():
         return user_content_tuple
 
 
-def create_user_message_list():
+def create_user_message_list() -> list:
     """
     将用户输入内容封装为列表
     :return:
