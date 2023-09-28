@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def b64_to_image(b64image):
+def b64_to_image(b64image) -> str:
     """
     将base64转换为图片并保存
     :param b64image:
